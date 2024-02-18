@@ -146,18 +146,22 @@ def gesture_detection(gesture_folder_path, gesture_file_name, mid_frame_counter)
 test_data_path = "TestData/"
 test_count = 0
 with open('results.csv', 'w', newline='') as results_file:
-    fields_names = [
-        'Gesture_Video_File_Name', 'Gesture_Name',
-        'Output_Label']
+    # fields_names = [
+    #     'Gesture_Video_File_Name', 'Gesture_Name',
+    #     'Output_Label']
+    fields_names = ['Output_Label'] 
     data_writer = csv.DictWriter(results_file, fieldnames=fields_names)
-    data_writer.writeheader()
+    # data_writer.writeheader()
 
     for test_file in os.listdir(test_data_path):
         if (not test_file.startswith('frames')) and (not test_file.startswith('.')):
             recognized_gesture_detail = gesture_detection(test_data_path, test_file, test_count)
             test_count = test_count + 1
 
+            # data_writer.writerow({
+            #     'Gesture_Video_File_Name': test_file,
+            #     'Gesture_Name': recognized_gesture_detail.gesture_name,
+            #     'Output_Label': recognized_gesture_detail.output_label})
+
             data_writer.writerow({
-                'Gesture_Video_File_Name': test_file,
-                'Gesture_Name': recognized_gesture_detail.gesture_name,
                 'Output_Label': recognized_gesture_detail.output_label})
